@@ -23,4 +23,4 @@ spec:
         - containerPort: 8080
         env:
           - name: HTTP_PORT
-            value: "1180"
+            value: "1180" 
