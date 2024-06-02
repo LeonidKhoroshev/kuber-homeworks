@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multitool-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multitool
+  template:
+    metadata:
+      labels:
+        app: multitool
+    spec:
+      containers:
+      - name: multitool
+        image: dockerhub.timeweb.cloud/library/nginx:1.26.0
+        command: ["sh", "-c", "while true; do echo 'Hello from multitool' >> /mnt/data.txt; sleep 5; done"]
+        volumeMounts:
+        - name: nfs-storage
+          mountPath: /mnt
+      volumes:
+      - name: nfs-storage
+        persistentVolumeClaim:
+          claimName: test-dynamic-volume-claim
